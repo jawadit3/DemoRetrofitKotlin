@@ -15,4 +15,7 @@ interface GetDataService {
 
     @DELETE("/posts/{id}")
     fun deletePost(@Path("id") postId:String):Call<Post>
+
+    @GET("/posts/{id}")
+    fun readSinglePost(@Path("id") postId:String): Call<Post>
 }

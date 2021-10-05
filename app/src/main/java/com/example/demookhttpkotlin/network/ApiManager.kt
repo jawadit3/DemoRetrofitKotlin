@@ -22,6 +22,7 @@ class ApiManager {
         enum class REQUEST_TYPE {
             REQUEST_CREATE_POST,
             REQUEST_UPDATE_POST,
+            REQUEST_READ_SINGLE_POST,
             REQUEST_READ_POST,
             REQUEST_DELETE_POST,
         }
@@ -44,6 +45,11 @@ class ApiManager {
         var service = retrofit.create(GetDataService::class.java)
         var call : Call<Post> = service.createPost(post)
         makeBackEndRequest(call,apiCallListener,REQUEST_TYPE.REQUEST_CREATE_POST)
+    }
+    fun readSinglePost(postId:Int ,apiCallListener: ApiCallListener ){
+        var service = retrofit.create(GetDataService::class.java)
+        var call : Call<Post> = service.readSinglePost(postId.toString())
+        makeBackEndRequest(call,apiCallListener,REQUEST_TYPE.REQUEST_READ_SINGLE_POST)
     }
     private fun <T> makeBackEndRequest(call:Call<T>,apiCallListener: ApiCallListener, requestType:REQUEST_TYPE){
         call.enqueue(object : Callback<T> {
