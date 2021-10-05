@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() , ApiCallListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ApiManager.getInstance().readPosts(this)
+        ApiManager.getInstance().deletePost(this)
     }
 
 
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() , ApiCallListener {
         when(requestType){
             ApiManager.Companion.REQUEST_TYPE.REQUEST_READ_POST -> postList= responseObject as List<Post>
             ApiManager.Companion.REQUEST_TYPE.REQUEST_CREATE_POST -> post= responseObject as Post
+            ApiManager.Companion.REQUEST_TYPE.REQUEST_DELETE_POST -> post= responseObject as Post
         }
         Log.d("response", postList.toString())
     }

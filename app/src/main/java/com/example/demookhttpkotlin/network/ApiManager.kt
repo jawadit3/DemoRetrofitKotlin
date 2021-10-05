@@ -35,6 +35,11 @@ class ApiManager {
         var call : Call<List<Post>> = service.readAllPosts()
         makeBackEndRequest(call,apiCallListener,REQUEST_TYPE.REQUEST_READ_POST)
     }
+    fun deletePost(apiCallListener: ApiCallListener){
+        var service = retrofit.create(GetDataService::class.java)
+        var call : Call<Post> = service.deletePost("1")
+        makeBackEndRequest(call,apiCallListener,REQUEST_TYPE.REQUEST_READ_POST)
+    }
     fun createPost(post: Post,apiCallListener: ApiCallListener){
         var service = retrofit.create(GetDataService::class.java)
         var call : Call<Post> = service.createPost(post)
@@ -45,7 +50,10 @@ class ApiManager {
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 Log.d("response", response.code().toString())
                 if (response.code() == 201  || response.code() == 200 ) {
-                    apiCallListener.onCallBackSuccess(response.body() as Any, requestType)
+                    if(response.body()!=null){
+                        apiCallListener.onCallBackSuccess(response.body() as Any, requestType)
+                    }
+
                 }
             }
 
